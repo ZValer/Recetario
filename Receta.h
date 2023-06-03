@@ -31,8 +31,8 @@ class Receta{
         float duracionPreparacion;
     public:
         //contructores y métodos públicos
-        Receta(): tipo(""), nombre(""), ingredientes(""), instrucciones(""), duracionPreparacion(0){}; //constructor default
-        Receta(string _tipo, string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion); //contructor que recibe parámetros
+        Receta(): tipo(""), nombre(""), ingredientes(""), instrucciones(""), duracionPreparacion(0.0){}; //constructor default
+        Receta(string, string, string, string, float); //contructor que recibe parámetros
 
         //getters:
         string get_tipo(){
@@ -47,16 +47,27 @@ class Receta{
         string get_instrucciones(){
             return instrucciones;
         }
-        int get_duracionPreparacion(){
+        float get_duracionPreparacion(){
             return duracionPreparacion;
         }
         
         // string imprimeDatos(); modificar método para que imprima
 
-        string cocinar(){
+        virtual string cocinar(){ 
             return "Cocinándose";
         }  //método donde se utilizará sobre escritura
+
+        virtual string imprime()=0;
+
 };
+
+Receta::Receta(string _tipo, string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion){
+            tipo=_tipo;
+            nombre= _nombre;
+            ingredientes=_ingredientes;
+            instrucciones=_instrucciones; 
+            duracionPreparacion=_duracionPreparacion;
+        }
 
 // Declaración de clase Postre que es clase hija de Receta
 // Existe una relación de herencia
@@ -69,12 +80,23 @@ class Postre: public Receta{
     Postre():Receta("","","","", 0){}; //contructor default
     //constructor que recibe parámetros
     Postre(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, int _caloriasPorcion):Receta("Postre", _nombre, _ingredientes, _instrucciones, _duracionPreparacion), 
-    caloriasPorcion(_caloriasPorcion){};
+    caloriasPorcion(_caloriasPorcion){}; 
     
     string cocinar() {
         return "Mezclo ingredientes... Horneo... Listo!";
     }
+
+    string imprime(); //método que utilizará sobre escritura
 };
+
+string Postre::imprime(){
+    stringstream aux;
+    aux << "Postre: " << nombre << "\n Ingredientes: " << ingredientes << "\n Instrucciones: " << instrucciones << "\n Duración de preparacion: " << duracionPreparacion <<
+    "\n Las calorias por porcion son: " << caloriasPorcion << "\n\n";
+    return aux.str();
+}
+
+
 
 // Declaración de clase PlatoFuerte que es clase hija de Receta
 // Existe una relación de herencia
@@ -85,13 +107,21 @@ class PlatoFuerte: public Receta{
     public:
     PlatoFuerte():Receta("","","","", 0){}; //contructor default
     //constructor que recibe parámetros
-    PlatoFuerte(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, string _tipoCarne):Receta("Postre", _nombre, _ingredientes, _instrucciones, _duracionPreparacion), 
+    PlatoFuerte(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, string _tipoCarne):Receta("PlatoFuerte", _nombre, _ingredientes, _instrucciones, _duracionPreparacion), 
     tipoCarne(_tipoCarne){};
     
     string cocinar() {
         return "Cortar ingredientes... Incorporar... Al sartén... Sazonar... Listo!";
     }
+     string imprime();
 };
+
+string PlatoFuerte::imprime(){
+    stringstream aux;
+    aux << "Plato fuerte: " << nombre << "\n Ingredientes: " << ingredientes << "\n Instrucciones: " << instrucciones << "\n Duración de preparacion: " << duracionPreparacion <<
+    "\n El tipo de carne es: " << tipoCarne << "\n\n";
+    return aux.str();
+}
 
 // Declaración de clase Snack que es clase hija de Receta
 // Existe una relación de herencia
@@ -102,14 +132,20 @@ class Snack: public Receta{
     public:
     Snack():Receta("","","","", 0){}; //contructor default
     //constructor que recibe parámetros
-    Snack(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, string _tipoSnack):Receta("Postre", _nombre, _ingredientes, _instrucciones, _duracionPreparacion), 
+    Snack(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, string _tipoSnack):Receta("Snack", _nombre, _ingredientes, _instrucciones, _duracionPreparacion), 
     tipoSnack(_tipoSnack){};
     
     string cocinar() {
         return "Cortar ingredientes... Acomodar... Empaquetar... Listo!";
     }
+    string imprime();
 };
 
+string Snack::imprime(){
+    stringstream aux;
+    aux << "Snack: " << nombre << "\n Ingredientes: " << ingredientes << "\n Instrucciones: " << instrucciones << "\n Duración de preparacion: " << duracionPreparacion <<
+"\n El tipo de snack es: " << tipoSnack << "\n\n";
+    return aux.str();
+}
+
 #endif // RECETA_H_
-
-
