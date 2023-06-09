@@ -51,13 +51,8 @@ class Receta{
             return duracionPreparacion;
         }
         
-        // string imprimeDatos(); modificar método para que imprima
-
-        virtual string cocinar(){ 
-            return "Cocinándose";
-        }  //método donde se utilizará sobre escritura
-
-        virtual string imprime()=0;
+        virtual string imprime()=0; //Clase abstracta
+                                    //método donde se utilizará sobre escritura
 
 };
 
@@ -77,15 +72,11 @@ class Postre: public Receta{
     int caloriasPorcion;
 
     public:
-    Postre():Receta("","","","", 0){}; //contructor default
+    Postre():Receta("","","","", 0){}; //constructor default
     //constructor que recibe parámetros
     Postre(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, int _caloriasPorcion):Receta("Postre", _nombre, _ingredientes, _instrucciones, _duracionPreparacion), 
     caloriasPorcion(_caloriasPorcion){}; 
     
-    string cocinar() {
-        return "Mezclo ingredientes... Horneo... Listo!";
-    }
-
     string imprime(); //método que utilizará sobre escritura
 };
 
@@ -110,10 +101,7 @@ class PlatoFuerte: public Receta{
     PlatoFuerte(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, string _tipoCarne):Receta("PlatoFuerte", _nombre, _ingredientes, _instrucciones, _duracionPreparacion), 
     tipoCarne(_tipoCarne){};
     
-    string cocinar() {
-        return "Cortar ingredientes... Incorporar... Al sartén... Sazonar... Listo!";
-    }
-     string imprime();
+    string imprime(); //método donde se utilizará sobre escritura
 };
 
 string PlatoFuerte::imprime(){
@@ -135,10 +123,7 @@ class Snack: public Receta{
     Snack(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, string _tipoSnack):Receta("Snack", _nombre, _ingredientes, _instrucciones, _duracionPreparacion), 
     tipoSnack(_tipoSnack){};
     
-    string cocinar() {
-        return "Cortar ingredientes... Acomodar... Empaquetar... Listo!";
-    }
-    string imprime();
+    string imprime(); //método donde se utilizará sobre escritura
 };
 
 string Snack::imprime(){
