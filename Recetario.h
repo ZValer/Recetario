@@ -68,12 +68,9 @@ void Recetario::mostrarRecetario(string _tipo){
 
 //método que hace una búsqueda por nombre de las recetas
 void Recetario::busqueda_nombre(string _nombre){
-    cout<<"\n";
-    cout<<"Receta: "<<_nombre<<endl;
-    cout<<"\n";
     for (int i=0;i<numReceta;i++){
         if (recetas[i]->get_nombre()==_nombre)
-            cout<< recetas[i]->imprime();
+            cout<<recetas[i]->imprime();
     } 
 }
 
