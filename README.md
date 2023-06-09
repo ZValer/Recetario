@@ -13,4 +13,5 @@ Ejemplo: Si se pide un número entero (int) y se ingresa texto el programa dejar
 - El programa sólo incluye recetas de tipo postre, plato fuerte y snack, no hay opción para otras.
 - Si se agrega una receta con el mismo nombre que otra, ocurre un error.
 - Los ingredientes solo se pueden agregar separados por espacios.
+- El nombre de las recetas solo puede ser de una palabra sin espacios ni caracteres especiales.
 
