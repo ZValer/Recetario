@@ -12,6 +12,7 @@ A01705435
 */ 
 
 #include <iostream> //para imprimir
+#include <string>
 using namespace std;
 
 //bibliotecas con clases de mi proyecto
@@ -20,7 +21,12 @@ using namespace std;
 
 
 int main(){
-        
+    //Introducción al usuario y explicación del programa
+    cout<<"\nBienvenido a tu RECETARIO"<<endl;
+    cout<<"\nAquí podrás guardar tus recetas de tipo: \n -Plato fuerte\n -Postre\n -Snack"<<endl;
+    cout<<"También podras buscar tus recetas por:\n - Nombre\n - Tipo\n - Tiempo de preparación"<<endl;
+    cout<<"------------------------------------------------------\n"<<endl;
+    
     //Crear recetario del usuario
     Recetario recetario;
 
@@ -53,16 +59,18 @@ int main(){
             //Pregunta al usuario para que ingrese los datos de la receta
             string _nombre;
             cout<<"\n Ingresa el nombre de la receta: "<<endl;
-            cin>>_nombre;
-            
+            cin>>_nombre; 
+                       
             string _ingredientes;
             cout<<"\n Agrega los ingredientes separados por espacios: "<<endl;
-            cin>>_ingredientes;
-
+            cin. ignore();
+            getline(cin, _ingredientes); //para que pueda recibir una linea de texto(palabras separadas por espacios)
+                    
             string _instrucciones;
             cout<<"\n Instrucciones: "<<endl;
-            cin>>_instrucciones;
-
+            cin. ignore();
+            getline(cin, _instrucciones); //para que pueda recibir una linea de texto(palabras separadas por espacios)
+            
             float _duracionPreparacion;
             cout<<"\n Duración de preparación (en minutos): "<<endl;
             cin>>_duracionPreparacion;
@@ -112,9 +120,11 @@ int main(){
             cin>>busquedaRecetas;
 
             if (busquedaRecetas==1){ //1)...Ingresando el nombre de la receta
+                
                 string nomb;
                 cout<<"Nombre de la receta: ";
                 cin>>nomb;
+                
                 recetario.busqueda_nombre(nomb);                
             }
 
@@ -133,6 +143,7 @@ int main(){
             if (busquedaRecetas==3){ //3)...Por duración de preparación 
                 recetario.busqueda_duracionPreparacion();
             }
+            
         }
         //Da al usuario opción de continuar o salir
         int contSalir;
