@@ -1,8 +1,14 @@
 /* 
-Proyecto Recetario "Receta.h"
-Valeria Zúñiga Mendoza
-A01705435
-*/ 
+ * Proyecto Recetario "Receta.h"
+ * Valeria Zúñiga Mendoza
+ * A01705435
+ * 15/06/2023
+ * 
+ * Esta clase define al objeto de tipo Receta que contiene las clases
+ * heredadas PlatoFuerte, Snack y Postre.
+ * 
+ */ 
+
 
 #ifndef RECETA_H_
 #define RECETA_H_
@@ -12,18 +18,21 @@ A01705435
 using namespace std;
 
 
-/*Declaración de la clase abstracta Receta 
-que tiene relación de herencia con sus clases hijas:
-- Postre
-- Plato fuerte
-- Snack
-*/
+/*
+ * Declaración de la clase abstracta Receta 
+ * que tiene relación de herencia con sus clases hijas:
+ * - Postre
+ * - Plato fuerte
+ * - Snack
+ */
 
 class Receta{
     protected:
-        /*variables protected: 
-        actúan como variables públicas para sus clases hijas 
-        y como privadas para las demás clases */
+        /*
+         * Variables protected: 
+         * actúan como variables públicas para sus clases hijas 
+         * y como privadas para las demás clases 
+         */
         string tipo;
         string nombre;
         string ingredientes;
@@ -56,12 +65,13 @@ class Receta{
 
 };
 
-Receta::Receta(string _tipo, string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion){
-            tipo=_tipo;
-            nombre= _nombre;
-            ingredientes=_ingredientes;
-            instrucciones=_instrucciones; 
-            duracionPreparacion=_duracionPreparacion;
+//Constructor de Receta
+Receta::Receta(string tip, string nomb, string ingred, string instr, float durPrep){
+            tipo=tip;
+            nombre= nomb;
+            ingredientes=ingred;
+            instrucciones=instr; 
+            duracionPreparacion=durPrep;
         }
 
 // Declaración de clase Postre que es clase hija de Receta
@@ -74,11 +84,21 @@ class Postre: public Receta{
     public:
     Postre():Receta("","","","", 0){}; //constructor default
     //constructor que recibe parámetros
-    Postre(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, int _caloriasPorcion):Receta("Postre", _nombre, _ingredientes, _instrucciones, _duracionPreparacion), 
-    caloriasPorcion(_caloriasPorcion){}; 
+    Postre(string nomb, string ingred, string instr, float durPrep, int calPorcion):Receta("Postre", nomb, ingred, instr, durPrep), 
+    caloriasPorcion(calPorcion){}; 
     
     string imprime(); //método que utilizará sobre escritura
 };
+
+/**
+ * imprime convierte los atributos a string.
+ *
+ * Realiza una concatenación de todos los valores de los atributos en un 
+ * string para ser impreso
+ *
+ * @param
+ * @return string con texto concatenado de la información de la receta
+ */
 
 string Postre::imprime(){
     stringstream aux;
@@ -86,8 +106,6 @@ string Postre::imprime(){
     "\n Las calorias por porcion son: " << caloriasPorcion << "\n\n";
     return aux.str();
 }
-
-
 
 // Declaración de clase PlatoFuerte que es clase hija de Receta
 // Existe una relación de herencia
@@ -98,12 +116,21 @@ class PlatoFuerte: public Receta{
     public:
     PlatoFuerte():Receta("","","","", 0){}; //contructor default
     //constructor que recibe parámetros
-    PlatoFuerte(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, string _tipoCarne):Receta("PlatoFuerte", _nombre, _ingredientes, _instrucciones, _duracionPreparacion), 
-    tipoCarne(_tipoCarne){};
+    PlatoFuerte(string nomb, string ingred, string instr, float durPrep, string tipCarne):Receta("PlatoFuerte", nomb, ingred, instr, durPrep), 
+    tipoCarne(tipCarne){};
     
     string imprime(); //método donde se utilizará sobre escritura
 };
 
+/**
+ * imprime convierte los atributos a string.
+ *
+ * Realiza una concatenación de todos los valores de los atributos en un 
+ * string para ser impreso
+ *
+ * @param
+ * @return string con texto concatenado de la información de la receta
+ */
 string PlatoFuerte::imprime(){
     stringstream aux;
     aux << "Plato fuerte: " << nombre << "\n Ingredientes: " << ingredientes << "\n Instrucciones: " << instrucciones << "\n Duración de preparacion: " << duracionPreparacion <<
@@ -120,12 +147,21 @@ class Snack: public Receta{
     public:
     Snack():Receta("","","","", 0){}; //contructor default
     //constructor que recibe parámetros
-    Snack(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, string _tipoSnack):Receta("Snack", _nombre, _ingredientes, _instrucciones, _duracionPreparacion), 
-    tipoSnack(_tipoSnack){};
+    Snack(string nomb, string ingred, string instr, float durPrep, string tipSnack):Receta("Snack", nomb, ingred, instr, durPrep), 
+    tipoSnack(tipSnack){};
     
     string imprime(); //método donde se utilizará sobre escritura
 };
 
+/**
+ * imprime convierte los atributos a string.
+ *
+ * Realiza una concatenación de todos los valores de los atributos en un 
+ * string para ser impreso
+ *
+ * @param
+ * @return string con texto concatenado de la información de la receta
+ */
 string Snack::imprime(){
     stringstream aux;
     aux << "Snack: " << nombre << "\n Ingredientes: " << ingredientes << "\n Instrucciones: " << instrucciones << "\n Duración de preparacion: " << duracionPreparacion <<
