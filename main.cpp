@@ -1,23 +1,16 @@
-/* para correr en terminal 
-te colocas en el archivo con
-cd link
-g++ main.cpp
-a.exe
-*/ 
-
 /* 
-Proyecto Recetario "main.cpp"
-Valeria Zúñiga Mendoza
-A01705435
-*/ 
+ * Para correr en terminal 
+ * te colocas en el archivo con "cd link"
+ * "g++ main.cpp"
+ * "a.exe"
+ */ 
 
 #include <iostream> //para imprimir
 #include <string>
 using namespace std;
 
-//bibliotecas con clases de mi proyecto
-#include "Recetario.h" 
-#include "Receta.h"
+#include "Recetario.h" //bibliotecas con clases de mi proyecto
+#include "Receta.h" //bibliotecas con clases de mi proyecto
 
 
 int main(){
@@ -45,7 +38,7 @@ int main(){
     }
     //Da al usuario opción de continuar o salir
     int contSalir;
-    cout<<"1. Continuar \n2. Salir \n  Ingresa 1/2: ";
+    cout<<"\n1. Continuar \n2. Salir \n  Ingresa 1/2: ";
     cin>>contSalir;
 
     while (contSalir==1){
@@ -57,23 +50,24 @@ int main(){
         //Si la respuesta es Agregar receta (1)
         if (respuesta1==1){
             //Pregunta al usuario para que ingrese los datos de la receta
-            string _nombre;
+            string nomb;
             cout<<"\n Ingresa el nombre de la receta: "<<endl;
-            cin>>_nombre; 
-                       
-            string _ingredientes;
+            cin.ignore();
+            getline(cin, nomb); //para que pueda recibir varias palabras
+                               
+            string ingred;
             cout<<"\n Agrega los ingredientes separados por espacios: "<<endl;
-            cin. ignore();
-            getline(cin, _ingredientes); //para que pueda recibir una linea de texto(palabras separadas por espacios)
+            cin.ignore();
+            getline(cin, ingred); //para que pueda recibir una linea de texto(palabras separadas por espacios)
                     
-            string _instrucciones;
+            string instr;
             cout<<"\n Instrucciones: "<<endl;
-            cin. ignore();
-            getline(cin, _instrucciones); //para que pueda recibir una linea de texto(palabras separadas por espacios)
+            cin.ignore();
+            getline(cin, instr); //para que pueda recibir una linea de texto(palabras separadas por espacios)
             
-            float _duracionPreparacion;
+            float durPrep;
             cout<<"\n Duración de preparación (en minutos): "<<endl;
-            cin>>_duracionPreparacion;
+            cin>>durPrep;
 
             cout<<"\n   1.Postre \n   2.Plato fuerte \n   3.Snack";
             int res2;
@@ -81,24 +75,24 @@ int main(){
             cin>>res2;
             //Dependiendo del tipo de receta se pregunta al usuario datos específicos y crea el objeto
             if (res2==1){
-                int _caloriasPorcion;
+                int calPorcion;
                 cout<<"\n Calorías por porción: ";
-                cin>>_caloriasPorcion;
-                recetario.agregaPostre(_nombre, _ingredientes, _instrucciones, _duracionPreparacion, _caloriasPorcion);
+                cin>>calPorcion;
+                recetario.agregaPostre(nomb, ingred, instr, durPrep, calPorcion);
             }
             
             else if (res2==2){
-                string _tipoCarne;
+                string tipCarne;
                 cout<<"\n Tipo de carne: ";
-                cin>>_tipoCarne;
-                recetario.agregaPlatoFuerte(_nombre, _ingredientes, _instrucciones, _duracionPreparacion, _tipoCarne);
+                cin>>tipCarne;
+                recetario.agregaPlatoFuerte(nomb, ingred, instr, durPrep, tipCarne);
             }
             
             else if (res2==3){
-                string _tipoSnack;
+                string tipSnack;
                 cout<<"\n Tipo de snack: ";
-                cin>>_tipoSnack;   
-                recetario.agregaSnack(_nombre, _ingredientes, _instrucciones, _duracionPreparacion, _tipoSnack);        
+                cin>>tipSnack;   
+                recetario.agregaSnack(nomb, ingred, instr, durPrep, tipSnack);        
             }
             
             else{
@@ -109,12 +103,12 @@ int main(){
         }
         
         //Si la respuesta es mostrar recetario (2)
-        if (respuesta1==2){
+        else if (respuesta1==2){
             recetario.mostrarRecetario();
         }
 
         //Si la respuesta es buscar receta (3)
-        if (respuesta1==3){
+        else if (respuesta1==3){
             int busquedaRecetas;
             cout<<"Deseas buscar recetas...\n1)...Ingresando el nombre de la receta\n2)...Ingresando el tipo de receta(Plato Fuerte/Postre/Snack)\n3)...Por duración de preparación \n\nIngresa (1/2/3): ";
             cin>>busquedaRecetas;
@@ -123,12 +117,13 @@ int main(){
                 
                 string nomb;
                 cout<<"Nombre de la receta: ";
-                cin>>nomb;
+                cin.ignore();
+                getline(cin, nomb); //Puede recibir más de una palabra
                 
                 recetario.busqueda_nombre(nomb);                
             }
 
-            if (busquedaRecetas==2){ //2)...Ingresando el tipo de receta(Plato Fuerte/Postre/Snack)
+            else if (busquedaRecetas==2){ //2)...Ingresando el tipo de receta(Plato Fuerte/Postre/Snack)
                 string tip;
                 cout<<"¿Deseas buscar las recetas de\n -Postre\n -PlatoFuerte\n -Snack \n(Escribe tu respuesta como se muestra escrito considerando mayúsculas): ";
                 cin>>tip;
@@ -140,14 +135,23 @@ int main(){
                 }
             }
 
-            if (busquedaRecetas==3){ //3)...Por duración de preparación 
+            else if (busquedaRecetas==3){ //3)...Por duración de preparación 
                 recetario.busqueda_duracionPreparacion();
             }
+
+            else{
+                    cout<<"Respuesta no válida";
+                }
             
         }
+
+        else{
+                    cout<<"Respuesta no válida";
+                }
+
         //Da al usuario opción de continuar o salir
         int contSalir;
-        cout<<"1. Continuar \n2. Salir \n  Ingresa 1/2: ";
+        cout<<"\n1. Continuar \n2. Salir \n  Ingresa 1/2: ";
         cin>>contSalir;
         if (contSalir==2){
             break; //Salir del while
