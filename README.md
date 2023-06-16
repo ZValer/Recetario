@@ -15,3 +15,5 @@ Ejemplo: Si se pide un número entero (int) y se ingresa texto el programa dejar
 - Los ingredientes solo se pueden agregar separados por espacios.
 - El nombre de las recetas solo puede ser de una palabra sin espacios ni caracteres especiales.
 
+## Modificaciones
+Los cambios, modificaciones y correcciones están especificados en el archivo "Cambios.pdf"
