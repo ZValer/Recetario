@@ -1,8 +1,18 @@
 /* 
-Proyecto Recetario "Recetario.h"
-Valeria Zúñiga Mendoza
-A01705435
-*/ 
+ * Proyecto Recetario "Recetario.h"
+ * Valeria Zúñiga Mendoza
+ * A01705435
+ * 15/06/2023
+ * 
+ * Esta clase define al objeto de tipo Recetario el cual contiene las 
+ * instrucciones para agregar los diferentes tipos de recetas: snack, 
+ * plato fuerte y postre. Así como las indicaciones para mostrar el 
+ * recetario y hacer búsquedas de recetas a partir de su nombre, tipo
+ * o duración de preparación.
+ * Aquí se contienen las funciones principales del programa y es parte 
+ * del proyecto Recetario.
+ * 
+ */ 
 
 #ifndef RECETARIO_H_
 #define RECETARIO_H_
@@ -21,7 +31,7 @@ const int tamMaximo=1000; //para el tamaño de arreglos
 class Recetario {
     private:
         //variables privadas
-        Receta *recetas[tamMaximo]; //utiliza un apuntador
+        Receta *recetas[tamMaximo]; //arreglo de apuntadores a objetos de tipo Receta
         int numReceta;
 
     public:
@@ -30,7 +40,7 @@ class Recetario {
        
         //métodos publicos
 
-        //agrgar recetas de diferentes tipos
+        //agregar recetas de diferentes tipos
         void agregaPostre(string, string, string, float, int);
         void agregaPlatoFuerte(string, string, string, float, string);
         void agregaSnack(string, string, string, float, string);
@@ -45,8 +55,15 @@ class Recetario {
         void creaRecetasPredeterminadas();
 };
 
-
-//método que despliega todas las recetas
+/**
+ * mostrarRecetario despliega todas las recetas guardadas
+ * 
+ * Utiliza el arreglo recetas[] y el número de Receta para recorrer el
+ * arreglo e ir imprimiendo cada receta con el método imprime().
+ * 
+ * @param 
+ * @return
+ */
 void Recetario::mostrarRecetario(){
     cout<<"\n";
     cout<<"\n Recetario\n"<<endl;
@@ -55,32 +72,61 @@ void Recetario::mostrarRecetario(){
     }       
 }
 
-//método que despliega las recetas de un solo tipo: Postre, Plato Fuerte o snack
-void Recetario::mostrarRecetario(string _tipo){
+/**
+ * mostrarRecetario(string tip) imprime recetas de un solo tipo
+ * 
+ * Utiliza el arreglo recetas[] y el número de Receta para recorrer 
+ * el arreglo e ir imprimiendo cada receta que coincida con el tipo 
+ * especificado ("Postre, PlatoFuerte, Snack").
+ *  
+ * @param string tip debe ser: "Postre", "PlatoFuerte" o "Snack"
+ * @return
+ */
+void Recetario::mostrarRecetario(string tip){
     cout<<"\n";
-    cout<<"Recetas tipo: "<<_tipo<<endl;
+    cout<<"Recetas tipo: "<<tip<<endl;
     cout<<"\n";
     for (int i=0;i<numReceta;i++){
-        if (recetas[i]->get_tipo()==_tipo)
+        if (recetas[i]->get_tipo()==tip)
             cout<< recetas[i]->imprime();
     } 
 }
 
-//método que hace una búsqueda por nombre de las recetas
-void Recetario::busqueda_nombre(string _nombre){
+/**
+ * busqueda_nombre(string nomb) imprime la receta que coincida con el 
+ * nombre dado
+ * 
+ * Utiliza el arreglo recetas[] y el número de Receta para recorrer 
+ * el arreglo e imprimir la receta que coincida con el nombre 
+ * especificado.
+ *  
+ * @param string nomb debe ser el nombre de una receta previamente guardada
+ * @return
+ */
+void Recetario::busqueda_nombre(string nomb){
     for (int i=0;i<numReceta;i++){
-        if (recetas[i]->get_nombre()==_nombre)
+        if (recetas[i]->get_nombre()==nomb)
             cout<<recetas[i]->imprime();
     } 
 }
 
-//método que hace una búsqueda por duración de preparación
+/**
+ * busqueda_duracionPreparacion imprime las recetas que coincida con el
+ * tiempo definido
+ * 
+ * Pregunta al usuario el rango de tiempo y utiliza el arreglo recetas[] 
+ * y el número de Receta para recorrer el arreglo e imprimir la receta 
+ * que coincida con el tiempo especificado.
+ *  
+ * @param 
+ * @return
+ */
 void Recetario::busqueda_duracionPreparacion(){
     float min;
     float max;
-    cout<<"Ingresa el rango de tiempo en minutos \nMínimo: ";
+    cout<<"Ingresa el rango de tiempo en minutos \nMayor que: ";
     cin>>min;
-    cout<<"Máximo: ";
+    cout<<"Menor que: ";
     cin>>max;
     cout<<"\n";
     for (int i=0;i<numReceta;i++){
@@ -89,28 +135,67 @@ void Recetario::busqueda_duracionPreparacion(){
     } 
 }
 
-//método que agrega objeto de tipo Postre
-void Recetario::agregaPostre(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, int _caloriasPorcion){
-    //crea un objeto Postre, utilizando polimorfismo
-    recetas[numReceta]= new Postre(_nombre, _ingredientes, _instrucciones, _duracionPreparacion, _caloriasPorcion);
+/**
+ * agregaPostre crea un objeto Postre y lo agrega al arreglo de recetas
+ *
+ * crea un objeto Postre y lo agrega a arreglo de recetas usando como 
+ * indice el número de receta, el que posteriormente aumenta en 1.
+ *
+ * @param string nombre de la receta, string ingredientes, 
+ * string instrucciones, float duración de la preparación en minutos 
+ * y int las calorías por porción
+ * @return
+ */
+void Recetario::agregaPostre(string nomb, string ingred, string instr, float durPrep, int calPorcion){
+    //crea un objeto en tiempo de ejecución utilizando polimorfismo
+    recetas[numReceta]= new Postre(nomb, ingred, instr, durPrep, calPorcion);
     numReceta++;
 }
 
-//método que agrega objeto de tipo PlatoFuerte
-void Recetario::agregaPlatoFuerte(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, string _tipoCarne){
-    //crea un objeto PlatoFuerte, utilizando polimorfismo
-    recetas[numReceta]= new PlatoFuerte(_nombre, _ingredientes, _instrucciones, _duracionPreparacion, _tipoCarne);
+/**
+ * agregaPlatoFuerte crea un objeto PlatoFuerte y lo agrega al arreglo 
+ * de recetas
+ *
+ * crea un objeto PlatoFuerte y lo agrega a arreglo de recetas usando 
+ * como indice el número de receta, el que posteriormente aumenta en 1.
+ *
+ * @param string nombre de la receta, string ingredientes, 
+ * string instrucciones, float duración de la preparación en minutos 
+ * y string el tipo de carne
+ * @return
+ */
+void Recetario::agregaPlatoFuerte(string nomb, string ingred, string instr, float durPrep, string tipCarne){
+    //crea un objeto en tiempo de ejecución utilizando polimorfismo
+    recetas[numReceta]= new PlatoFuerte(nomb, ingred, instr, durPrep, tipCarne);
     numReceta++;
 }
 
-//método que agrega objeto de tipo Snack
-void Recetario::agregaSnack(string _nombre, string _ingredientes, string _instrucciones, float _duracionPreparacion, string _tipoSnack){
-    //crea un objeto Snack, utilizando polimorfismo
-    recetas[numReceta]= new Snack(_nombre, _ingredientes, _instrucciones, _duracionPreparacion, _tipoSnack);
+/**
+ * agregaSnack crea un objeto Snack y lo agrega al arreglo de recetas
+ *
+ * Crea un objeto Snack y lo agrega a arreglo de recetas usando como
+ * indice el número de receta, el que posteriormente aumenta en 1.
+ *
+ * @param string nombre de la receta, string ingredientes, 
+ * string instrucciones, float duración de la preparación en minutos 
+ * y string el tipo de snack
+ * @return
+ */
+void Recetario::agregaSnack(string nomb, string ingred, string instr, float durPrep, string tipSnack){
+    //crea un objeto en tiempo de ejecución utilizando polimorfismo
+    recetas[numReceta]= new Snack(nomb, ingred, instr, durPrep, tipSnack);
     numReceta++;
 }
 
-// Método que crea Recetas de ejemplo
+/**
+ * creaRecetasPredeterminadas genera objetos en recetas[]
+ * 
+ * crea objetos de tipo Postre, PlatoFuerte y Snack y los guarda en el
+ * arreglo recetas[] para agregar recetas de ejemplo al crear tu recetario
+ *  
+ * @param 
+ * @return
+ */
 void Recetario::creaRecetasPredeterminadas(){
     recetas[numReceta] = new Postre("Helado", "Fresas, hielos, azucar, leche", "Mezcla y congela", 120, 200);
     numReceta++;
